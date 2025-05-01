@@ -18,7 +18,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.event-card img {
+.event-card-img {
   width: 100%;
   height: 150px;
   object-fit: cover;
