@@ -6,10 +6,10 @@ export default function Layout({children}){
             <>
             <header>
                 <nav>
-                    <link to="/"></link>
-                    <link to="Musikk">Musikk</link>
-                    <link to="Sport">sport</link>
-                    <link to="Teater/Show">Teater/show</link>
+                    <Link to="/"></Link>
+                    <Link to="Musikk">Musikk</Link>
+                    <Link to="Sport">sport</Link>
+                    <Link to="Teater/Show">Teater/show</Link>
                 </nav>
 
             </header>
