@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import '../home.css';
+
+ {/* Foreløpig kode for API - MAlene  */}
 
 const API_KEY = 'AgNENsWPtsr9hDbDVE6OHkBjGeHHc20W';
 const proxyUrl = 'https://corsproxy.io/?';
 const eventIds = [
-  'Z698xZb_Z16v7eGkFy', // Findings
-  'Z698xZb_Z17q339',   // Neon
-  'Z698xZb_Z17qfaA',   // Skeikampenfestivalen
-  'Z698xZb_Z17q3qg'    // Tons of Rock
+  'Z698xZb_Z16v7eGkFy', // findings
+  'Z698xZb_Z17q339',    // Neon
+  'Z698xZb_Z17qfaA',    // Skeikampfestivalen
+  'Z698xZb_Z17q3qg',    // Tons of rock 
 ];
 
 function Home() {
-    console.log("Home-komponenten kjører");
+  console.log("Home-komponenten kjører");
 
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,9 +24,13 @@ function Home() {
         const fetchedEvents = [];
         for (const id of eventIds) {
           const apiUrl = `https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${API_KEY}`;
-          const response = await axios.get(`${proxyUrl}${apiUrl}`);
-          fetchedEvents.push(response.data);
-          await new Promise(res => setTimeout(res, 1000));
+          const response = await fetch(`${proxyUrl}${apiUrl}`);
+          if (!response.ok) {
+            throw new Error(`Feil ved henting av event ${id}: ${response.status}`);
+          }
+          const data = await response.json();
+          fetchedEvents.push(data);
+          await new Promise(res => setTimeout(res, 1000)); 
         }
         setEvents(fetchedEvents);
       } catch (error) {
@@ -71,7 +76,5 @@ function Home() {
     </div>
   );
 }
-
-
 
 export default Home;
