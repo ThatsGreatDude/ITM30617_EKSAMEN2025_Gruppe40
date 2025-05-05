@@ -9,6 +9,12 @@ maliharon   =  Mohammed haron ali
 BjornAndreas = Bjørn Andreas Huseby
 Andersklevaas1 = Anders Klevaas
 
+Github lenke til repository: !!!!!!!
+
+Redegjørelse og forutsetninger: 
+
+Redegjøre for potensielle utfordringer som ikke rakk/ble klart løst: 
+
 
 Kilder for EventPage.jsx:
 https://github.com/toremake/uin2025_coursebase/blob/main/Zelda_api/src/components/GamePage.jsx 
