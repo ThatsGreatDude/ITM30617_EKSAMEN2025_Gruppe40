@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import '../home.css';
 
 const API_KEY = 'AgNENsWPtsr9hDbDVE6OHkBjGeHHc20W';
@@ -12,8 +12,6 @@ const eventIds = [
 ];
 
 function Home() {
-    console.log("Home-komponenten kjører");
-
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -21,11 +19,13 @@ function Home() {
     const fetchEvents = async () => {
       try {
         const fetchedEvents = [];
-        for (const id of eventIds) {
-          const apiUrl = `https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${API_KEY}`;
-          const response = await axios.get(`${proxyUrl}${apiUrl}`);
-          fetchedEvents.push(response.data);
-          await new Promise(res => setTimeout(res, 1000));
+        for (let id of eventIds) {
+          const response = await fetch(`${proxyUrl}https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${API_KEY}`);
+          if (!response.ok) {
+            throw new Error('Feil ved henting av data');
+          }
+          const data = await response.json();
+          fetchedEvents.push(data);
         }
         setEvents(fetchedEvents);
       } catch (error) {
@@ -48,22 +48,16 @@ function Home() {
       ) : (
         <div className="event-grid">
           {events.map(event => (
-            <div
-              key={event.id}
-              className="event-card"
-            >
+            <div key={event.id} className="event-card">
               <img
                 src={event.images[0]?.url}
                 alt={event.name}
                 className="event-card-img"
               />
               <h3 className="event-card-title">{event.name}</h3>
-              <a
-                href={`/event/${event.id}`}
-                className="event-card-link"
-              >
+              <Link to={`/event/${event.id}`} className="event-card-link">
                 Se detaljer →
-              </a>
+              </Link>
             </div>
           ))}
         </div>
@@ -71,7 +65,5 @@ function Home() {
     </div>
   );
 }
-
-
 
 export default Home;

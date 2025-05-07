@@ -9,8 +9,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/event/:events_id" element={<EventPage />} />
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/event/:events_id" element={<EventPage />} />
+          </Route>
       </Routes>
     </Router>
   )

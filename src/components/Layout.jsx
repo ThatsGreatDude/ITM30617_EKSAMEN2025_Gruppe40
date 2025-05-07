@@ -1,4 +1,5 @@
-import {Link} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
+import './Layout.css';
 
 
 export default function Layout({children}){
@@ -6,13 +7,15 @@ export default function Layout({children}){
             <>
             <header>
                 <nav>
-                    <Link to="/"></Link>
-                    <Link to="Musikk">Musikk</Link>
-                    <Link to="Sport">sport</Link>
-                    <Link to="Teater/Show">Teater/show</Link>
+                    <Link to="/" className="logo">BillettLyst</Link>
+                    <Link to="/category/musikk">Musikk</Link>
+                    <Link to="/category/sport">Sport</Link>
+                    <Link to="/category/teater">Teater/Show</Link>
+                    <Link to="/dashboard">Logg inn</Link>
                 </nav>
 
             </header>
+            <main><Outlet /></main>
             </>
     );
 }
