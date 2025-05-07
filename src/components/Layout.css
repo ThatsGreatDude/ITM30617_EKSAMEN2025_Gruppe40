@@ -3,7 +3,7 @@ header {
     border-bottom: 1px solid #ccc;
     min-height: 80px;
     color: white;
-    font-size: 16px;
+    font-size: 24px;
   }
   
   nav {
@@ -16,15 +16,16 @@ header {
   
   .logo {
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 2rem;
     text-decoration: none;
     color: white;
+    margin-top: 100px;
   }
   
   nav a {
     text-decoration: none;
     color: white;
-    font-size: 1rem;
+    font-size: 1.5rem;
     margin-right: 0.5rem;
   }
 
