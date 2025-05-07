@@ -9,8 +9,23 @@ maliharon   =  Mohammed haron ali
 BjornAndreas = Bjørn Andreas Huseby
 Andersklevaas1 = Anders Klevaas
 
+Github lenke til repository: !!!!!!!
+
+Redegjørelse og forutsetninger: 
+
+Redegjøre for potensielle utfordringer som ikke rakk/ble klart løst: 
 
 
+Kilder for EventPage.jsx:
+https://github.com/toremake/uin2025_coursebase/blob/main/Zelda_api/src/components/GamePage.jsx 
+Kilden ble brukt i EventPage.jsx 
+
+
+Kilder for Home.jsx:
+Uten Axios
+
+https://lms.webtricks.blog/kurs/uin/asynkronitet-og-api-behandling/api-behandling Uten Axios
+https://github.com/toremake/uin2025_coursebase/blob/main/Zelda_api/src/components/Home.jsx
 
 
 Kilder:
