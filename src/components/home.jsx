@@ -10,44 +10,59 @@ const eventIds = [
   'Z698xZb_Z17qfaA',   // Skeikampenfestivalen
   'Z698xZb_Z17q3qg'    // Tons of Rock
 ];
+const cities = ['Berlin', 'London', 'Paris', 'Oslo'];
 
 function Home() {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [featuredEvents, setFeaturedEvents] = useState([]);
+  const [cityEvents, setCityEvents] = useState([]);
+  const [city, setCity] = useState('Berlin');
+  const [loading, setLoading] = useState(false);
+
+  const fetchEvents = async (url) => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      return data._embedded?.events || [];
+    } catch (error) {
+      console.error('Feil ved henting av eventer:', error);
+      return [];
+    }
+  };
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const fetchedEvents = [];
-        for (let id of eventIds) {
-          const response = await fetch(`${proxyUrl}https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${API_KEY}`);
-          if (!response.ok) {
-            throw new Error('Feil ved henting av data');
-          }
-          const data = await response.json();
-          fetchedEvents.push(data);
-        }
-        setEvents(fetchedEvents);
-      } catch (error) {
-        console.error('Feil ved henting av eventer:', error);
-      } finally {
-        setLoading(false);
-      }
+    const fetchFeaturedEvents = async () => {
+      setLoading(true);
+      const fetchedEvents = await Promise.all(
+        eventIds.map(id => fetchEvents(`${proxyUrl}https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${API_KEY}`))
+      );
+      setFeaturedEvents(fetchedEvents.flat());
+      setLoading(false);
     };
 
-    fetchEvents();
+    fetchFeaturedEvents();
   }, []);
+
+  useEffect(() => {
+    const fetchCityEvents = async () => {
+      setLoading(true);
+      const cityEventsData = await fetchEvents(`${proxyUrl}https://app.ticketmaster.com/discovery/v2/events.json?city=${city}&apikey=${API_KEY}&size=10`);
+      setCityEvents(cityEventsData);
+      setLoading(false);
+    };
+
+    fetchCityEvents();
+  }, [city]);
 
   return (
     <div className="home-container">
       <h1>Utvalgte festivaler</h1>
       {loading ? (
         <p>Laster inn...</p>
-      ) : events.length === 0 ? (
+      ) : featuredEvents.length === 0 ? (
         <p>Ingen arrangementer funnet.</p>
       ) : (
         <div className="event-grid">
-          {events.map(event => (
+          {featuredEvents.map((event) => (
             <div key={event.id} className="event-card">
               <img
                 src={event.images[0]?.url}
@@ -58,6 +73,38 @@ function Home() {
               <Link to={`/event/${event.id}`} className="event-card-link">
                 Se detaljer →
               </Link>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <h1 id="choose-city">Velg byen du ønsker å se</h1>
+      <div className="city-buttons">
+        {cities.map((cityName) => (
+          <button key={cityName} onClick={() => setCity(cityName)}>
+            {cityName}
+          </button>
+        ))}
+      </div>
+
+      <h2>I {city} kan du oppleve:</h2>
+
+      {loading ? (
+        <p>Laster inn...</p>
+      ) : cityEvents.length === 0 ? (
+        <p>Ingen arrangementer funnet i {city}.</p>
+      ) : (
+        <div className="event-grid">
+          {cityEvents.map((event) => (
+            <div key={event.id} className="event-card">
+              <img
+                src={event.images[0]?.url}
+                alt={event.name}
+                className="event-card-img"
+              />
+              <h3 className="event-card-title">{event.name}</h3>
+              <p>{event._embedded?.venues[0]?.city?.name}, {event._embedded?.venues[0]?.country?.name}</p>
+              <p>{new Date(event.dates.start.localDate).toLocaleDateString()}</p>
             </div>
           ))}
         </div>

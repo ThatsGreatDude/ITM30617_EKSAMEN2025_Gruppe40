@@ -36,14 +36,43 @@
   text-decoration: none;
 }
 
+.city-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.city-buttons button {
+  background-color: transparent;
+  color: #007bff;
+  border: 2px solid #007bff;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.city-buttons button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.city-buttons button:focus {
+  outline: none;
+}
 
 @media (max-width: 768px) {
-    .event-grid {
-      justify-content: center;
-    }
-  
-    .event-card {
-      width: 100%;
-      max-width: 300px;
-    }
+  .event-grid {
+    justify-content: center;
   }
+
+  .event-card {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+#choose-city h1 {
+margin-top: 20px;
+}
