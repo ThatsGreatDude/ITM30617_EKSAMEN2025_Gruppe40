@@ -4,6 +4,7 @@ import Home from './components/home'
 import EventPage from './components/EventPage';
 import './App.css'
 import Layout from './components/Layout'
+import CategoryPage from './components/CategoryPage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/event/:events_id" element={<EventPage />} />
+            <Route path="/category/:slug" element={<CategoryPage />} />
           </Route>
       </Routes>
     </Router>
