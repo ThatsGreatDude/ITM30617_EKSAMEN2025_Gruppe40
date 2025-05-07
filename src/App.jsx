@@ -4,6 +4,7 @@ import Home from './components/home';
 import EventPage from './components/EventPage';
 import Dashboard from './components/DashBoard';
 import Layout from './components/Layout';
+import CategoryPage from './components/CategoryPage';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/event/:events_id" element={<EventPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/category/:slug" element={<CategoryPage />} />
         </Route>
       </Routes>
     </Router>
