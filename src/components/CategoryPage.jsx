@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import EventCard from './EventCard'; 
 
 function CategoryPage() {
   const { slug } = useParams();
