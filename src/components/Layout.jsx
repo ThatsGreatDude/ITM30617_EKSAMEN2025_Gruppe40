@@ -10,7 +10,7 @@ export default function Layout({children}){
                     <Link to="/" className="logo">BillettLyst</Link>
                     <Link to="/category/musikk">Musikk</Link>
                     <Link to="/category/sport">Sport</Link>
-                    <Link to="/category/teater-show">Teater/Show</Link>
+                    <Link to="/category/Teater-Show">Teater/Show</Link>
                     <Link to="/dashboard">Logg inn</Link>
                 </nav>
 
