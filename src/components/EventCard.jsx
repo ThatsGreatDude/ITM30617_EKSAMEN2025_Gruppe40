@@ -1,15 +1,24 @@
-import { Link } from "react-router-dom";
 
+import { Link } from 'react-router-dom';
 
-export default function EventCard({ event }) {
+const EventCard = ({ events }) => {
   return (
-    <article className="event-card">
-      <h3>{event.name}</h3>
-      <p>{event.info || "testestest"}</p>
-      <span>{event.dates?.start.localDate}</span>
-      <Link to={`/event/${event.id}`} className="event-card-link">
-        Se detaljer
-      </Link>
-    </article>
+    <div className="event-grid">
+      {events.map(event => (
+        <div key={event.id} className="event-card">
+          <img
+            src={event.images[0]?.url}
+            alt={event.name}
+            className="event-card-img"
+          />
+          <h3 className="event-card-title">{event.name}</h3>
+          <Link to={`/event/${event.id}`} className="event-card-link">
+            Se detaljer →
+          </Link>
+        </div>
+      ))}
+    </div>
   );
-}
+};
+
+export default EventCard;
