@@ -29,7 +29,7 @@ function EventPage() {
       <p>{event?.info || "Ingen informasjon er tilgjengelig."}</p>
       <p>Dato: {event?.dates?.start?.localDate}</p>
       <p>Sted: {event?._embedded?.venues?.[0]?.name}</p>
-      <p>Kjøp  Billetter →</p> 
+      <p>Kjøp Billetter →</p> 
     </section>
   );
 }
