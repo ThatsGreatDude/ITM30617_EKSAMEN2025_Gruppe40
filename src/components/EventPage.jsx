@@ -5,22 +5,32 @@ const API_KEY = "AgNENsWPtsr9hDbDVE6OHkBjGeHHc20W";
 
 function EventPage() {
   const { events_id } = useParams();
-  const [events, setEvents] = useState();
-
-  const getEvents = async () => {
-    fetch(`https://app.ticketmaster.com/discovery/v2/events/${events_id}.json?apikey=${API_KEY}`)
-      .then((response) => response.json())
-      .then((data) => setEvents(data))
-      .catch((error) =>
-        console.error("det skjedde en feil under fecth", error)
-      );
-  };
+  const [events, setEvents] = useState(null);
 
   useEffect(() => {
+    const getEvents = async () => {
+      try {
+        const response = await fetch(
+          `https://app.ticketmaster.com/discovery/v2/events/${events_id}.json?apikey=${API_KEY}`
+        );
+        const data = await response.json();
+        setEvents(data);
+      } catch (error) {
+        console.error("Det skjedde en feil under fetch", error);
+      }
+    };
+
     getEvents();
   }, [events_id]);
 
-  return <h1>{events?.name}</h1>;
+
+  useEffect(() => {
+    if (events) {
+      console.log("Fetched event data:", events);
+    }
+  }, [events]);
+
+  return <h1>{events?.name || "Laster inn..."}</h1>;
 }
 
 export default EventPage;
