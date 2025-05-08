@@ -17,6 +17,18 @@ function EventPage() {
   };
 
   useEffect(() => {
+    const getEvents = async () => {
+      try {
+        const response = await fetch(
+          `https://app.ticketmaster.com/discovery/v2/events/${events_id}.json?apikey=${API_KEY}`
+        );
+        const data = await response.json();
+        setEvents(data);
+      } catch (error) {
+        console.error("Det skjedde en feil under fetch", error);
+      }
+    };
+
     getEvents();
   }, [events_id]);
 
