@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../home.css';
+import EventCard from "./EventCard";
 
 const API_KEY = 'AgNENsWPtsr9hDbDVE6OHkBjGeHHc20W';
 const proxyUrl = 'https://corsproxy.io/?';
