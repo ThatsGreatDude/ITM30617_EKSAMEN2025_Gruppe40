@@ -34,20 +34,19 @@ function EventPage() {
       <p>Dato: {event?.dates?.start?.localDate}</p>
       <p>Klokkeslett: {event?.dates?.start?.localTime || "Ikke oppgitt"}</p>
       <p>Sted: {event?._embedded?.venues?.[0]?.city?.name || "Ikke oppgitt"}, {event?._embedded?.venues?.[0]?.country?.name || "Ikke oppgitt"}</p>
-      
+     
       {event?.classifications && (
       <p> Sjanger:{" "}
-        {event.classifications.map((c) => {
-        const name = c.genre?.name;
-        if (
-          !name || name.toLowerCase() === "undefined"
-        ) {
-          return null;
+      {event.classifications.map((c) => c.genre?.name)
+      .filter((name) => name && name.toLowerCase() !== "undefined")
+      .filter((name, index, self) => self.indexOf(name) === index) //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
+      .join(", ") || "Ikke oppgitt"}
+      </p> )}
+
+      <p>Tilgjengelighet: {
+          {onsale: "Billetter tilgjengelig"} [event?.dates?.status?.code] || "Ikke oppgitt"
         }
-        return name;
-      })
-      .filter(Boolean).join(", ") || "Ikke oppgitt"} </p>
-      )}
+      </p>
       
       {event?.url && (
         <p>
@@ -56,8 +55,6 @@ function EventPage() {
           </a>
         </p>
       )}
-
-
 
       <h2>Festivalpass</h2>
       {festivalPasses && festivalPasses.length > 0 ? (
