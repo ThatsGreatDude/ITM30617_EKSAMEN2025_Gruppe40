@@ -6,6 +6,8 @@ import Dashboard from './components/DashBoard';
 import Layout from './components/Layout';
 import CategoryPage from './components/CategoryPage';
 import './App.css';
+import ArtistCard from './components/ArtistCard';
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
           <Route path="/event/:events_id" element={<EventPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/category/:slug" element={<CategoryPage />} />
+          <Route path="ArtistCard" element={<ArtistCard />} />
         </Route>
       </Routes>
     </Router>

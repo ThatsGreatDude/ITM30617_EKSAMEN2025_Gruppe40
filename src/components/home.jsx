@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../home.css';
+import ArtistCard from './ArtistCard';
 
 const API_KEY = 'AgNENsWPtsr9hDbDVE6OHkBjGeHHc20W';
 const proxyUrl = 'https://corsproxy.io/?';
@@ -15,6 +16,7 @@ const cities = ['Berlin', 'London', 'Paris', 'Oslo'];
 function Home() {
   const [featuredEvents, setFeaturedEvents] = useState([]);
   const [cityEvents, setCityEvents] = useState([]);
+  const [artists, setArtists] = useState([]);
   const [city, setCity] = useState('Berlin');
   const [loading, setLoading] = useState(false);
 
@@ -29,13 +31,38 @@ function Home() {
     }
   };
 
+  function extractArtistsFromEvents(events) {
+    const artistMap = new Map();
+
+    events.forEach((event) => {
+      const attractions = event._embedded?.attractions || [];
+      attractions.forEach((artist) => {
+        if (!artistMap.has(artist.id)) {
+          artistMap.set(artist.id, {
+            id: artist.id,
+            name: artist.name,
+            description: artist.classifications?.[0]?.genre?.name || "Artist",
+            released_date: event.dates?.start?.localDate || "",
+          });
+        }
+      });
+    });
+
+    return Array.from(artistMap.values());
+  }
+
   useEffect(() => {
     const fetchFeaturedEvents = async () => {
       setLoading(true);
       const fetchedEvents = await Promise.all(
-        eventIds.map(id => fetchEvents(`${proxyUrl}https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${API_KEY}`))
+        eventIds.map(id =>
+          fetchEvents(`${proxyUrl}https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${API_KEY}`)
+        )
       );
-      setFeaturedEvents(fetchedEvents.flat());
+      const flatEvents = fetchedEvents.flat();
+      setFeaturedEvents(flatEvents);
+      const eventArtists = extractArtistsFromEvents(flatEvents);
+      setArtists(eventArtists);
       setLoading(false);
     };
 
@@ -77,6 +104,14 @@ function Home() {
           ))}
         </div>
       )}
+
+      {/*Usikker på om vi trenger tittel her, men mer oversiktlig for nå*/}
+      <h2>Artister fra utvalgte festivaler:</h2> 
+      <div className="artist-grid">
+        {artists.map((artist) => (
+          <ArtistCard key={artist.id} artist={artist} />
+        ))}
+      </div>
 
       <h1 id="choose-city">Velg byen du ønsker å se</h1>
       <div className="city-buttons">
