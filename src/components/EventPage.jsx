@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import EventCard from "./EventCard";
 
 const API_KEY = "AgNENsWPtsr9hDbDVE6OHkBjGeHHc20W";
 
@@ -20,6 +21,9 @@ function EventPage() {
     getEvents();
   }, [events_id]);
 
+  const festivalPasses = event?.products?.filter(p => p.name.toLowerCase().includes("pass"));
+
+
   return (
     <section>
       <h1>{event?.name}</h1>
@@ -28,8 +32,39 @@ function EventPage() {
       )}
       <p>{event?.info || "Ingen informasjon er tilgjengelig."}</p>
       <p>Dato: {event?.dates?.start?.localDate}</p>
-      <p>Sted: {event?._embedded?.venues?.[0]?.name}</p>
-      <p>Kjøp Billetter →</p> 
+      <p>Klokkeslett: {event?.dates?.start?.localTime || "Ikke oppgitt"}</p>
+      <p>Sted: {event?._embedded?.venues?.[0]?.city?.name || "Ikke oppgitt"}, {event?._embedded?.venues?.[0]?.country?.name || "Ikke oppgitt"}</p>
+      
+      {event?.classifications && (
+      <p> Sjanger:{" "}
+        {event.classifications.map((c) => {
+        const name = c.genre?.name;
+        if (
+          !name || name.toLowerCase() === "undefined"
+        ) {
+          return null;
+        }
+        return name;
+      })
+      .filter(Boolean).join(", ") || "Ikke oppgitt"} </p>
+      )}
+      
+      {event?.url && (
+        <p>
+          <a href={event.url} target="_blank" rel="noopener noreferrer">
+            Kjøp billetter →
+          </a>
+        </p>
+      )}
+
+
+
+      <h2>Festivalpass</h2>
+      {festivalPasses && festivalPasses.length > 0 ? (
+        festivalPasses.map((pass) => <EventCard key={pass.id} event={pass} />)
+      ) : (
+        <p>Ingen festivalpass tilgjengelig.</p>
+      )}
     </section>
   );
 }
