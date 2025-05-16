@@ -102,10 +102,21 @@ const Home = () => {
     <div className="event-card">
       {getEventImage(event) && (
         <img
+          key={`${event.id}-${getEventImage(event)}`}
           src={getEventImage(event)}
           alt={event.name}
           className="event-card-img"
           loading="lazy"
+          onError={e => {
+            const imgEl = e.currentTarget;
+            const attempts = parseInt(imgEl.dataset.attempts || '0', 10);
+            if (attempts < 2) {
+              imgEl.dataset.attempts = attempts + 1;
+              imgEl.src = proxyUrl + getEventImage(event);
+            } else {
+              imgEl.onerror = null;
+            }
+          }}
         />
       )}
       <h3 className="event-card-title">{event.name}</h3>
@@ -117,7 +128,7 @@ const Home = () => {
       )}
       {showLink && (
         <Link to={`/event/${event.id}`} className="event-card-link">
-          Se detaljer →
+          Les mer om {event.name}
         </Link>
       )}
     </div>

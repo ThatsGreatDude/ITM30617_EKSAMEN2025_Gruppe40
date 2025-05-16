@@ -32,8 +32,19 @@
 .event-card a {
   display: inline-block;
   margin-top: 0.5rem;
-  color: #0066cc;
+  color: white;
   text-decoration: none;
+  padding: 10px 15px;
+  background-color: #0066cc;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.event-card a:hover {
+  background-color: #005bb5;
+  transform: scale(1.03);
 }
 
 .city-buttons {
