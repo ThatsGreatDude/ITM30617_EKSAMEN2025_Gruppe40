@@ -57,14 +57,16 @@ const Home = () => {
   useEffect(() => {
     const fetchFeaturedEvents = async () => {
       setLoadingFeatured(true);
-      const fetchedEvents = await Promise.all(
-        eventIds.map(id =>
-          fetchEvents(`${proxyUrl}https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${API_KEY}`)
-        )
-      );
-      const validEvents = fetchedEvents.filter(Boolean);
-      setFeaturedEvents(validEvents);
-      const eventArtists = extractArtistsFromEvents(validEvents);
+      const fetchedEvents = [];
+
+      for (const id of eventIds) {
+        const data = await fetchEvents(`${proxyUrl}https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${API_KEY}`);
+        if (data) fetchedEvents.push(data);
+        await new Promise(resolve => setTimeout(resolve, 300));
+      }
+
+      setFeaturedEvents(fetchedEvents);
+      const eventArtists = extractArtistsFromEvents(fetchedEvents);
       setArtists(eventArtists);
       setLoadingFeatured(false);
     };
@@ -93,10 +95,9 @@ const Home = () => {
     fetchCityEvents(city);
   }, [city]);
 
-  // Hjelpefunksjon for å hente første gyldige bilde
+
   const getEventImage = (event) => event.images?.find(img => img?.url)?.url;
 
-  // Intern komponent for å vise eventkort
   const EventCardBlock = ({ event, showLink }) => (
     <div className="event-card">
       {getEventImage(event) && (
