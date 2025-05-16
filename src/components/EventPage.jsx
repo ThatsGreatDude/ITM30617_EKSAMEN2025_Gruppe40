@@ -59,12 +59,10 @@ function EventPage() {
 
       {event?._embedded?.attractions?.length > 0 && (
       <>
-        <h2>Artister</h2>
-        {event._embedded.attractions.map((artist) => (
-          <ArtistCard key={artist.id} artist={artist} />
-        ))}
+        <h2>Artist</h2>
+        <ArtistCard artist={event._embedded.attractions[0]} />
       </>
-    )}
+      )}
 
       <h2>Festivalpass</h2>
       {festivalPasses && festivalPasses.length > 0 ? (
