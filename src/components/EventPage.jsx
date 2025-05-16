@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
+import ArtistCard from "./Artistcard";
 
 const API_KEY = "AgNENsWPtsr9hDbDVE6OHkBjGeHHc20W";
 
@@ -30,7 +31,7 @@ function EventPage() {
       {event?.images && (
         <img src={event.images[0]?.url} alt={event.name} className="eventpage-image"/>
       )}
-      <p>{event?.info || "Ingen informasjon er til gjengelig."}</p>
+      <p>{event?.info || event?.description || "Ingen informasjon er til gjengelig."}</p>
       <p>Dato: {event?.dates?.start?.localDate}</p>
       <p>Klokkeslett: {event?.dates?.start?.localTime || "Ikke oppgitt"}</p>
       <p>Sted: {event?._embedded?.venues?.[0]?.city?.name || "Ikke oppgitt"}, {event?._embedded?.venues?.[0]?.country?.name || "Ikke oppgitt"}</p>
@@ -55,6 +56,15 @@ function EventPage() {
           </a>
         </p>
       )}
+
+      {event?._embedded?.attractions?.length > 0 && (
+      <>
+        <h2>Artister</h2>
+        {event._embedded.attractions.map((artist) => (
+          <ArtistCard key={artist.id} artist={artist} />
+        ))}
+      </>
+    )}
 
       <h2>Festivalpass</h2>
       {festivalPasses && festivalPasses.length > 0 ? (
