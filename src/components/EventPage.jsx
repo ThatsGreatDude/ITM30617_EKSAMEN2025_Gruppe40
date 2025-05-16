@@ -30,7 +30,7 @@ function EventPage() {
       {event?.images && (
         <img src={event.images[0]?.url} alt={event.name} className="eventpage-image"/>
       )}
-      <p>{event?.info || "Ingen informasjon er tilgjengelig."}</p>
+      <p>{event?.info || "Ingen informasjon er til gjengelig."}</p>
       <p>Dato: {event?.dates?.start?.localDate}</p>
       <p>Klokkeslett: {event?.dates?.start?.localTime || "Ikke oppgitt"}</p>
       <p>Sted: {event?._embedded?.venues?.[0]?.city?.name || "Ikke oppgitt"}, {event?._embedded?.venues?.[0]?.country?.name || "Ikke oppgitt"}</p>
