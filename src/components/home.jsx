@@ -11,11 +11,14 @@ const eventIds = [
   'Z698xZb_Z17qfaA',   // Skeikampenfestivalen
   'Z698xZb_Z17q3qg'    // Tons of Rock
 ];
-const cities = ['Berlin', 'London', 'Paris', 'Oslo'];
+
+const cities = ['Berlin', 'London', 'Paris', 'Oslo']; // Example cities
 
 function Home() {
   const [featuredEvents, setFeaturedEvents] = useState([]);
+  const [city, setCity] = useState('Berlin'); // Default city
   const [cityEvents, setCityEvents] = useState([]);
+<<<<<<< Updated upstream
   const [artists, setArtists] = useState([]);
   const [city, setCity] = useState('Berlin');
   const [loading, setLoading] = useState(false);
@@ -30,6 +33,10 @@ function Home() {
       return [];
     }
   };
+=======
+  const [loadingFeatured, setLoadingFeatured] = useState(true);
+  const [loadingCity, setLoadingCity] = useState(true);
+>>>>>>> Stashed changes
 
   function extractArtistsFromEvents(events) {
     const artistMap = new Map();
@@ -53,6 +60,7 @@ function Home() {
 
   useEffect(() => {
     const fetchFeaturedEvents = async () => {
+<<<<<<< Updated upstream
       setLoading(true);
       const fetchedEvents = await Promise.all(
         eventIds.map(id =>
@@ -64,32 +72,60 @@ function Home() {
       const eventArtists = extractArtistsFromEvents(flatEvents);
       setArtists(eventArtists);
       setLoading(false);
+=======
+      try {
+        const fetchedEvents = [];
+        for (let id of eventIds) {
+          const response = await fetch(`${proxyUrl}https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${API_KEY}`);
+          if (!response.ok) {
+            throw new Error('Feil ved henting av data');
+          }
+          const data = await response.json();
+          fetchedEvents.push(data);
+        }
+        setFeaturedEvents(fetchedEvents);
+      } catch (error) {
+        console.error('Feil ved henting av eventer:', error);
+      } finally {
+        setLoadingFeatured(false);
+      }
+>>>>>>> Stashed changes
     };
 
     fetchFeaturedEvents();
   }, []);
 
   useEffect(() => {
-    const fetchCityEvents = async () => {
-      setLoading(true);
-      const cityEventsData = await fetchEvents(`${proxyUrl}https://app.ticketmaster.com/discovery/v2/events.json?city=${city}&apikey=${API_KEY}&size=10`);
-      setCityEvents(cityEventsData);
-      setLoading(false);
+    const fetchCityEvents = async (city) => {
+      setLoadingCity(true);
+      try {
+        const response = await fetch(`${proxyUrl}https://app.ticketmaster.com/discovery/v2/events.json?city=${city}&apikey=${API_KEY}&size=10`);
+        if (!response.ok) {
+          throw new Error('Feil ved henting av data for by');
+        }
+        const data = await response.json();
+        setCityEvents(data._embedded?.events || []);
+      } catch (error) {
+        console.error('Feil ved henting av eventer for by:', error);
+        setCityEvents([]);
+      } finally {
+        setLoadingCity(false);
+      }
     };
 
-    fetchCityEvents();
+    fetchCityEvents(city);
   }, [city]);
 
   return (
     <div className="home-container">
       <h1>Utvalgte festivaler</h1>
-      {loading ? (
+      {loadingFeatured ? (
         <p>Laster inn...</p>
       ) : featuredEvents.length === 0 ? (
         <p>Ingen arrangementer funnet.</p>
       ) : (
         <div className="event-grid">
-          {featuredEvents.map((event) => (
+          {featuredEvents.map(event => (
             <div key={event.id} className="event-card">
               <img
                 src={event.images[0]?.url}
@@ -104,6 +140,7 @@ function Home() {
           ))}
         </div>
       )}
+<<<<<<< Updated upstream
 
       {/*Usikker på om vi trenger tittel her, men mer oversiktlig for nå*/}
       <h2>Artister fra utvalgte festivaler:</h2> 
@@ -114,6 +151,10 @@ function Home() {
       </div>
 
       <h1 id="choose-city">Velg byen du ønsker å se</h1>
+=======
+<br></br>
+      <h1 id='choose-city'>Velg byen du ønsker å se</h1>
+>>>>>>> Stashed changes
       <div className="city-buttons">
         {cities.map((cityName) => (
           <button key={cityName} onClick={() => setCity(cityName)}>
@@ -124,7 +165,7 @@ function Home() {
 
       <h2>I {city} kan du oppleve:</h2>
 
-      {loading ? (
+      {loadingCity ? (
         <p>Laster inn...</p>
       ) : cityEvents.length === 0 ? (
         <p>Ingen arrangementer funnet i {city}.</p>
