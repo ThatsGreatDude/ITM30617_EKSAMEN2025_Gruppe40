@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import ArtistCard from "./Artistcard";
+import './EventPage.css';
 
 const API_KEY = "AgNENsWPtsr9hDbDVE6OHkBjGeHHc20W";
 
@@ -31,20 +32,27 @@ function EventPage() {
       {event?.images && (
         <img src={event.images[0]?.url} alt={event.name} className="eventpage-image"/>
       )}
-      <p>{event?.info || event?.description || "Ingen informasjon er til gjengelig."}</p>
-      <p>Dato: {event?.dates?.start?.localDate}</p>
-      <p>Klokkeslett: {event?.dates?.start?.localTime || "Ikke oppgitt"}</p>
-      <p>Sted: {event?._embedded?.venues?.[0]?.city?.name || "Ikke oppgitt"}, {event?._embedded?.venues?.[0]?.country?.name || "Ikke oppgitt"}</p>
+      <p><strong>{event?.info || event?.description || "Ingen informasjon er til gjengelig."}</strong></p>
+      <p><strong>Dato:</strong> {event?.dates?.start?.localDate}</p>
+      <p><strong>Klokkeslett:</strong> {event?.dates?.start?.localTime || "Ikke oppgitt"}</p>
+      <p><strong>Sted:</strong> {event?._embedded?.venues?.[0]?.city?.name || "Ikke oppgitt"}, {event?._embedded?.venues?.[0]?.country?.name || "Ikke oppgitt"}</p>
      
       {event?.classifications && (
-      <p> Sjanger:{" "}
+      <p><strong>Sjanger:{" "}</strong>
       {event.classifications.map((c) => c.genre?.name)
       .filter((name) => name && name.toLowerCase() !== "undefined")
       .filter((name, index, self) => self.indexOf(name) === index) //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
       .join(", ") || "Ikke oppgitt"}
       </p> )}
 
-      <p>Tilgjengelighet: {
+      {event?._embedded?.attractions?.length > 0 && (
+      <>
+        <h2>Artist</h2>
+        <ArtistCard artist={event._embedded.attractions[0]} />
+      </>
+      )}
+
+      <p><strong>Tilgjengelighet:</strong> {
           {onsale: "Billetter tilgjengelig"} [event?.dates?.status?.code] || "Ikke oppgitt"
         }
       </p>
@@ -55,13 +63,6 @@ function EventPage() {
             Kjøp billetter →
           </a>
         </p>
-      )}
-
-      {event?._embedded?.attractions?.length > 0 && (
-      <>
-        <h2>Artist</h2>
-        <ArtistCard artist={event._embedded.attractions[0]} />
-      </>
       )}
 
       <h2>Festivalpass</h2>
