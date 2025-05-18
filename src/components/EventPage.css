@@ -1,0 +1,97 @@
+section {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  color: #ffffff;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  color: #ffffff;
+  text-align: center;
+}
+
+.eventpage-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+p strong {
+  color: #ffffff;
+}
+
+
+.artist-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.artist-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 250px;
+  text-align: center;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.artist-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.artist-card h3 {
+  margin-top: 1rem;
+}
+
+
+.event-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 250px;
+  text-align: center;
+  padding: 1rem;
+  margin: 1rem auto;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .eventpage-image {
+    max-height: 250px;
+  }
+
+  .artist-card,
+  .event-card {
+    width: 100%;
+    max-width: 300px;
+  }
+}

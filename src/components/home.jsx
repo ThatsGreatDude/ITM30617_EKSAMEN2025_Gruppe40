@@ -18,7 +18,6 @@ const Home = () => {
   const [featuredEvents, setFeaturedEvents] = useState([]);
   const [city, setCity] = useState('Berlin');
   const [cityEvents, setCityEvents] = useState([]);
-  const [artists, setArtists] = useState([]);
   const [loadingFeatured, setLoadingFeatured] = useState(true);
   const [loadingCity, setLoadingCity] = useState(true);
 
@@ -33,27 +32,6 @@ const Home = () => {
     }
   };
 
-  const extractArtistsFromEvents = events => {
-    const artistMap = new Map();
-
-    events.forEach(event => {
-      const attractions = event._embedded?.attractions || [];
-      attractions.forEach(artist => {
-        if (!artistMap.has(artist.id)) {
-          artistMap.set(artist.id, {
-            id: artist.id,
-            name: artist.name,
-            description: artist.classifications?.[0]?.genre?.name ? artist.classifications[0].genre.name : "Artist",
-            released_date: event.dates?.start?.localDate || "",
-            image: artist.images?.[0]?.url || null,
-          });
-        }
-      });
-    });
-
-    return Array.from(artistMap.values());
-  };
-
   useEffect(() => {
     const fetchFeaturedEvents = async () => {
       setLoadingFeatured(true);
@@ -65,9 +43,7 @@ const Home = () => {
         await new Promise(resolve => setTimeout(resolve, 300));
       }
 
-      setFeaturedEvents(fetchedEvents);
-      const eventArtists = extractArtistsFromEvents(fetchedEvents);
-      setArtists(eventArtists);
+      setFeaturedEvents(fetchedEvents); 
       setLoadingFeatured(false);
     };
 
@@ -102,21 +78,10 @@ const Home = () => {
     <div className="event-card">
       {getEventImage(event) && (
         <img
-          key={`${event.id}-${getEventImage(event)}`}
           src={getEventImage(event)}
           alt={event.name}
           className="event-card-img"
           loading="lazy"
-          onError={e => {
-            const imgEl = e.currentTarget;
-            const attempts = parseInt(imgEl.dataset.attempts || '0', 10);
-            if (attempts < 2) {
-              imgEl.dataset.attempts = attempts + 1;
-              imgEl.src = proxyUrl + getEventImage(event);
-            } else {
-              imgEl.onerror = null;
-            }
-          }}
         />
       )}
       <h3 className="event-card-title">{event.name}</h3>
@@ -136,7 +101,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <h1>Utvalgte festivaler</h1>
+      <h1>Sommerens festivaler!</h1>
       {loadingFeatured && <p>Laster inn...</p>}
       {!loadingFeatured && featuredEvents.length === 0 && <p>Ingen arrangementer funnet.</p>}
       {!loadingFeatured && featuredEvents.length > 0 && (
@@ -147,15 +112,9 @@ const Home = () => {
         </div>
       )}
 
-      <h2>Artister fra utvalgte festivaler:</h2> 
-      <div className="artist-grid">
-        {artists.map(artist => (
-          <ArtistCard key={artist.id} artist={artist} />
-        ))}
-      </div>
 
       <br></br>
-      <h1 id='choose-city'>Velg byen du ønsker å se</h1>
+      <h1 id='choose-city'>Hva skjer i verdens storbyer!</h1>
       <div className="city-buttons">
         {cities.map(cityName => (
           <button key={cityName} onClick={() => setCity(cityName)}>
@@ -164,7 +123,7 @@ const Home = () => {
         ))}
       </div>
 
-      <h2>I {city} kan du oppleve:</h2>
+      <h2>Hva skjer i {city}</h2>
 
       {loadingCity && <p>Laster inn...</p>}
       {!loadingCity && cityEvents.length === 0 && <p>Ingen arrangementer funnet i {city}.</p>}
