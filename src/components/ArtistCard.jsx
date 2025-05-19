@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import './ArtistCard.css';
-import './EventPage.css';
+import '../Styling/ArtistCard.css';
+import '../Styling/EventPage.css';
 
 export default function ArtistCard({ artist }) {
   const imageUrl = artist.image || "https://via.placeholder.com/300x200?text=No+Image";

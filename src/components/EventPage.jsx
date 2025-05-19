@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import ArtistCard from "./ArtistCard";
 
-import './EventPage.css';
+import '../Styling/EventPage.css';
 
 const API_KEY = "AgNENsWPtsr9hDbDVE6OHkBjGeHHc20W";
 

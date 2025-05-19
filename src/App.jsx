@@ -5,7 +5,7 @@ import EventPage from './components/EventPage';
 import Dashboard from './components/DashBoard';
 import Layout from './components/Layout';
 import CategoryPage from './components/CategoryPage';
-import './App.css';
+import './Styling/App.css';
 import ArtistCard from './components/ArtistCard';
 
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Dashboard.css'; 
+import '../Styling/DashBoard.css';
 
 function Dashboard() {
   const [username, setUsername] = useState('');

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../home.css';
+import '../Styling/home.css';
 import ArtistCard from './ArtistCard';
 
 const API_KEY = 'AgNENsWPtsr9hDbDVE6OHkBjGeHHc20W';
