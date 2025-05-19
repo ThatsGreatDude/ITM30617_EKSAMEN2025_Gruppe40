@@ -31,9 +31,8 @@ Kilder for Home.jsx:
 https://lms.webtricks.blog/kurs/uin/asynkronitet-og-api-behandling/api-behandling 
 https://github.com/toremake/uin2025_coursebase/blob/main/Zelda_api/src/components/Home.jsx
 https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 https://reactjs.org/docs/hooks-overview.html
-https://lms.webtricks.blog/kurs/uin/asynkronitet-og-api-behandling/api-behandling
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
 https://www.youtube.com/watch?v=je3FTTunyp4
 https://stackoverflow.com/questions/62274181/react-js-join-two-arrays-together-in-a-filter
 https://legacy.reactjs.org/docs/lists-and-keys.html
