@@ -1,7 +1,7 @@
 Eksamensdokument for gruppe 40.
 
 Vanskelighetsgrad:
-Vi tenker å for minstekravet først, og jobbe oss oppover. 
+Vi tenker å gå for minstekravet først, og jobbe oss oppover. 
 
 Github brukernavn:
 ThatsGreatDude = Malene Steffensen-Andersen
@@ -26,7 +26,9 @@ Uten Axios
 
 https://lms.webtricks.blog/kurs/uin/asynkronitet-og-api-behandling/api-behandling Uten Axios
 https://github.com/toremake/uin2025_coursebase/blob/main/Zelda_api/src/components/Home.jsx
-
+https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+https://reactjs.org/docs/hooks-overview.html
 
 Kilder:
 
