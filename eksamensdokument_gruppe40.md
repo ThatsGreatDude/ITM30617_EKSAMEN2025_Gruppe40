@@ -22,17 +22,19 @@ Kilden ble brukt i EventPage.jsx
 
 
 Kilder for Home.jsx:
-Uten Axios
 
 https://lms.webtricks.blog/kurs/uin/asynkronitet-og-api-behandling/api-behandling Uten Axios
 https://github.com/toremake/uin2025_coursebase/blob/main/Zelda_api/src/components/Home.jsx
 https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 https://reactjs.org/docs/hooks-overview.html
+https://lms.webtricks.blog/kurs/uin/asynkronitet-og-api-behandling/api-behandling
+https://www.youtube.com/watch?v=je3FTTunyp4
+https://stackoverflow.com/questions/62274181/react-js-join-two-arrays-together-in-a-filter
+https://legacy.reactjs.org/docs/lists-and-keys.html
 
-Kilder:
 
-https://react.dev/reference/react/useEffect 
-https://www.digitalocean.com/community/tutorials/react-axios-react Axios for enkel API kall.
-https://axios-http.com/docs/intro 
-https://chatgpt.com/share/68136149-2490-800b-9a61-0e440bc1da8a chatgpt prompt om axios
+
+
+
+
