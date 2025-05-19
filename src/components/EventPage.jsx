@@ -52,7 +52,7 @@ function EventPage() {
       {event?.images && (
         <img src={event.images[0]?.url} alt={event.name} className="eventpage-image"/>
       )}
-      <p><strong>{event?.info || event?.description || "Ingen informasjon er tilgjengelig."}</strong></p>
+      <p><strong>{event?.info || event?.description || "Beskrivelsen om eventet kommer."}</strong></p>
       <p><strong>Dato:</strong> {event?.dates?.start?.localDate}</p>
       <p><strong>Klokkeslett:</strong> {event?.dates?.start?.localTime || "Ikke oppgitt"}</p>
       <p><strong>Sted:</strong> {event?._embedded?.venues?.[0]?.city?.name || "Ikke oppgitt"}, {event?._embedded?.venues?.[0]?.country?.name || "Ikke oppgitt"}</p>
