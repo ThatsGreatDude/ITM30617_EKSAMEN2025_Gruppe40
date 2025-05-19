@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../home.css';
+import EventCard from './EventCard';
 
 const API_KEY = 'AgNENsWPtsr9hDbDVE6OHkBjGeHHc20W';
 const proxyUrl = 'https://corsproxy.io/?';
@@ -46,21 +47,7 @@ function Home() {
       ) : events.length === 0 ? (
         <p>Ingen arrangementer funnet.</p>
       ) : (
-        <div className="event-grid">
-          {events.map(event => (
-            <div key={event.id} className="event-card">
-              <img
-                src={event.images[0]?.url}
-                alt={event.name}
-                className="event-card-img"
-              />
-              <h3 className="event-card-title">{event.name}</h3>
-              <Link to={`/event/${event.id}`} className="event-card-link">
-                Se detaljer →
-              </Link>
-            </div>
-          ))}
-        </div>
+        <EventCard events={events} />
       )}
     </div>
   );
