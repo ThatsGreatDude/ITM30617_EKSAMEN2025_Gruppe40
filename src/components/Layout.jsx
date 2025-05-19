@@ -2,7 +2,7 @@ import {Link, Outlet} from "react-router-dom";
 import '../Styling/Layout.css';
 
 
-export default function Layout({children}){
+export default function Layout(){
     return(
             <>
             <header>
